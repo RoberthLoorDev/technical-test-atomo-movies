@@ -1,5 +1,5 @@
 <template>
-  <q-footer class="text-white row | footer">
+  <q-footer class="text-white row | footer footer-style">
     <q-toolbar class="">
       <q-toolbar-title class="row items-center justify-between">
         <a href="/" style="width: 131px">
@@ -30,3 +30,5 @@
     </q-toolbar>
   </q-footer>
 </template>
+
+<style></style>

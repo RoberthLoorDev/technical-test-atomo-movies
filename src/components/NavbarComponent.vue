@@ -1,11 +1,12 @@
 <template>
-  <q-header class="text-white q-pa-xl" style="background-color: #030416">
+  <!-- navbar -->
+  <q-header class="text-white q-py-lg q-px-xl | navbar-style">
     <q-toolbar class="">
       <q-toolbar-title class="row items-center justify-between">
         <a
           href="/"
           style="width: 131px"
-          class="q-mb-md q-show-md q-show-lg q-show-xl"
+          class="q-mb-md q-show-md q-show-lg q-show-xl q-mt-xs"
         >
           <q-img
             src="../assets/icon-page.png"
@@ -29,3 +30,9 @@ import { formattDateToNavbar } from "src/utils/utils";
 const currentDate = new Date();
 const date = formattDateToNavbar(currentDate);
 </script>
+
+<style>
+.navbar-style {
+  background-color: transparent;
+}
+</style>
