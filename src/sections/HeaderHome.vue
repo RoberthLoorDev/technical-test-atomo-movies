@@ -19,7 +19,7 @@
 
     <!-- icon play -->
     <div class="button-play">
-      <q-img src="../assets/play-icon.png" width="103px" />
+      <q-img src="../assets/play-icon.png" width="83px" />
     </div>
 
     <!-- background image -->
@@ -38,12 +38,17 @@
 
 .button-play {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 130px;
+  height: 130px;
   border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.button-play:hover {
+  transform: scale(1.2);
 }
 
 .button-play::before {
@@ -55,7 +60,7 @@
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  opacity: 0.5;
+  opacity: 0.1;
 }
 
 .background-header-image {
@@ -63,8 +68,8 @@
   top: -10rem;
   left: 0;
   z-index: -10;
-  opacity: 0.5;
+  opacity: 0.4;
 
-  mask-image: linear-gradient(transparent, black 65%, transparent);
+  mask-image: linear-gradient(transparent, black 60%, transparent);
 }
 </style>
