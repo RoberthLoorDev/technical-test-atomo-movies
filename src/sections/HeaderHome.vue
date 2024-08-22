@@ -5,11 +5,16 @@
       <span class="text-white text-weight-light">Trending de la semana:</span>
 
       <h2 class="text-h2 text-white text-weight-bold q-mt-lg">Interestelar</h2>
-      <div class="text-body1 text-grey-7 text-weight-bold q-mt-sm">
-        <span> IMDb 8,72 </span>
+      <div
+        class="text-body1 text-grey-7 text-weight-bold q-mt-sm row justify-between"
+      >
+        <span class=""> IMDb 8,72 </span>
         <span>2 h 42 min</span>
         <span>2014</span>
-        <span class="">+16</span>
+
+        <div class="age">
+          <span class="text-white">+16</span>
+        </div>
       </div>
 
       <p class="text-white text-weight-medium text-body1 q-mt-sm">
@@ -34,6 +39,7 @@
 .home-header {
   position: relative;
   height: 668px;
+  max-height: 668px;
 }
 
 .button-play {
@@ -71,5 +77,17 @@
   opacity: 0.4;
 
   mask-image: linear-gradient(transparent, black 60%, transparent);
+  object-fit: cover;
+  object-position: center;
+}
+
+.age {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 46px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
 }
 </style>
