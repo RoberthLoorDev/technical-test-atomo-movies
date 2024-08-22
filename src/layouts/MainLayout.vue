@@ -6,7 +6,7 @@
       <router-view />
     </q-page-container>
 
-    <!-- <FooterComponent /> -->
+    <FooterComponent />
   </q-layout>
 </template>
 
@@ -16,18 +16,6 @@ import NavbarComponent from "src/components/NavbarComponent.vue";
 </script>
 
 <style>
-.footer {
-  height: 100px;
-  background-color: #1c1d2d;
-  padding: 0 100px;
-}
-
-.text-footer-container {
-  display: flex;
-  gap: 45px;
-  font-size: 12px;
-}
-
 a {
   color: white;
   text-decoration: none;

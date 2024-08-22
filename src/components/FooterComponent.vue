@@ -5,7 +5,7 @@
         <a href="/" style="width: 131px">
           <q-img
             src="../assets/icon-page.png"
-            style="max-height: 34px; max-width: 131px"
+            style="max-height: 34px; max-width: 111px"
             alt="Atom movies"
           />
         </a>
@@ -31,4 +31,17 @@
   </q-footer>
 </template>
 
-<style></style>
+<style>
+.footer {
+  position: relative;
+  height: 80px;
+  background-color: #1c1d2d;
+  padding: 0 100px;
+}
+
+.text-footer-container {
+  display: flex;
+  gap: 45px;
+  font-size: 12px;
+}
+</style>

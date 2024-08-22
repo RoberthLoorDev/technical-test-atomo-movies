@@ -33,6 +33,7 @@ const date = formattDateToNavbar(currentDate);
 
 <style>
 .navbar-style {
+  position: relative;
   background-color: transparent;
 }
 </style>
