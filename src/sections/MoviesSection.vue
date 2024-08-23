@@ -26,6 +26,7 @@
       <MovieComponent
         v-for="(movie, index) in movieList"
         :key="index"
+        :id="movie.id"
         :title="movie.original_title"
         :date="movie.release_date"
         :short-description="movie.overview"
@@ -40,8 +41,6 @@ import MovieComponent from "src/components/MovieComponent.vue";
 const props = defineProps({
   movieList: Array,
 });
-
-console.log(props.movieList);
 </script>
 
 <style>
