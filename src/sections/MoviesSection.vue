@@ -23,7 +23,7 @@
     </q-form>
 
     <!-- movies content -->
-    <div class="movies-container">
+    <q-list class="movies-container">
       <MovieComponent
         v-for="movie in moviesToDisplay"
         :key="movie.id"
@@ -33,7 +33,7 @@
         :short-description="movie.overview"
         :image="movie.poster_path"
       />
-    </div>
+    </q-list>
   </section>
 </template>
 

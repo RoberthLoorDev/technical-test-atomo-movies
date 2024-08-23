@@ -4,7 +4,7 @@
     v-if="movieDetails"
     class="home-header q-px-xl row justify-between items-center"
   >
-    <div>
+    <q-card class="bg-transparent">
       <span class="text-white text-weight-light">Trending movie:</span>
 
       <h2 class="text-h2 text-white text-weight-bold q-mt-lg">
@@ -25,12 +25,12 @@
       <p class="text-white text-weight-medium text-body1 q-mt-sm">
         {{ formatGenresHomeMovie(movieDetails.genres) }}
       </p>
-    </div>
+    </q-card>
 
     <!-- icon play -->
-    <div class="button-play" @click="goToMoviePageDetails">
+    <q-icon class="button-play bg-transparent" @click="goToMoviePageDetails">
       <q-img src="../assets/play-icon.png" width="83px" />
-    </div>
+    </q-icon>
 
     <!-- background image -->
     <q-img

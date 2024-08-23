@@ -23,7 +23,6 @@ export function useMovies() {
     try {
       const response = await getPopularMovies(page);
       movies.value = response.data.results;
-      console.log(mostPopularMovie.value);
     } catch (e) {
       error.value = "Error fetching popular movies";
       console.error(e);
