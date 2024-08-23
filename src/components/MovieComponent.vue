@@ -1,9 +1,5 @@
 <template>
-  <q-card
-    class="movie-container"
-    clickable
-    @click="goToMoviePageDetails(props.id)"
-  >
+  <q-card class="movie-container" clickable @click="goToMovieDetails(props.id)">
     <q-img :src="imageUrl" class="rounded-lg" style="border-radius: 7px" />
     <div class="info-movie">
       <span class="date-movie">{{ dateMovie }}</span>
@@ -22,8 +18,9 @@ import {
   formattDateForEachMovie,
   formattUrlPosterMovie,
 } from "src/utils/utils";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import { useNavigation } from "../composables/useNavigation";
+
+const { goToMovieDetails } = useNavigation();
 
 const dateMovie = ref(null);
 const imageUrl = ref(null);
@@ -53,10 +50,6 @@ const props = defineProps({
 
 dateMovie.value = formattDateForEachMovie(props.date);
 imageUrl.value = formattUrlPosterMovie(props.image, "w200");
-
-const goToMoviePageDetails = (movieId) => {
-  router.push({ name: "MovieDetails", params: { id: movieId } });
-};
 </script>
 
 <style>

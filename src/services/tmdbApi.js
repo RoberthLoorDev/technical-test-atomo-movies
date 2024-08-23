@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Configure Axios for the TMDb API.
 const API = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   params: {

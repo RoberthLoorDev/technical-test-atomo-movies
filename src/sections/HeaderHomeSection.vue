@@ -1,5 +1,4 @@
 <template>
-  <!-- header -->
   <section
     v-if="movieDetails"
     class="home-header q-px-xl row justify-between items-center"
@@ -28,7 +27,10 @@
     </q-card>
 
     <!-- icon play -->
-    <q-icon class="button-play bg-transparent" @click="goToMoviePageDetails">
+    <q-icon
+      class="button-play bg-transparent"
+      @click="goToMovieDetails(movieDetails.id)"
+    >
       <q-img src="../assets/play-icon.png" width="83px" />
     </q-icon>
 
@@ -41,17 +43,15 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
 import { useMovies } from "src/composables/useMovies";
-import { onMounted } from "vue";
 import {
   formatGenresHomeMovie,
   formattMovieDuration,
-  getYear,
   formattUrlPosterMovie,
+  getYear,
 } from "src/utils/utils";
-
-const router = useRouter();
+import { onMounted } from "vue";
+import { useNavigation } from "../composables/useNavigation";
 
 const {
   fetchMovieDetails,
@@ -60,15 +60,13 @@ const {
   fetchPopularMovies,
 } = useMovies();
 
+const { goToMovieDetails } = useNavigation();
+
 onMounted(async () => {
   await fetchPopularMovies();
   const mostPopularMovieId = getMostPopularMovie();
   await fetchMovieDetails(mostPopularMovieId);
 });
-
-const goToMoviePageDetails = (movieId) => {
-  router.push({ name: "MovieDetails", params: { id: movieDetails.value.id } });
-};
 </script>
 
 <style>

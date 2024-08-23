@@ -1,8 +1,10 @@
+//composable that communicates with the api file and processes the data.
+
 import { ref } from "vue";
 import {
   getMovieDetails,
-  getPopularMovies,
   getMovieVideos,
+  getPopularMovies,
   getProviders,
   searchMovies,
 } from "../services/tmdbApi.js";
@@ -59,7 +61,7 @@ export function useMovies() {
         (video) => video.type === "Trailer" && video.site === "YouTube"
       );
     } catch (e) {
-      error.value = "Error fetching movie details";
+      error.value = "Error fetching movie videos";
       console.error(e);
     } finally {
       loading.value = false;
@@ -74,7 +76,7 @@ export function useMovies() {
       const providers = response.data.results.US.link;
       providersMovie.value = providers;
     } catch (e) {
-      error.value = "Error fetching movie details";
+      error.value = "Error fetching movie providers";
       console.error(e);
     } finally {
       loading.value = false;
@@ -88,7 +90,7 @@ export function useMovies() {
       const response = await searchMovies(query, page);
       movies.value = response.data.results;
     } catch (e) {
-      error.value = "Error searching for movies";
+      error.value = "Error searching movies";
       console.error(e);
     } finally {
       loading.value = false;

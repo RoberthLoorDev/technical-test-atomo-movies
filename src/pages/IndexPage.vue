@@ -13,8 +13,8 @@ import { useMovies } from "src/composables/useMovies";
 
 const { fetchPopularMovies, movies } = useMovies();
 
-onMounted(() => {
-  fetchPopularMovies();
+onMounted(async () => {
+  await fetchPopularMovies();
 });
 
 defineOptions({

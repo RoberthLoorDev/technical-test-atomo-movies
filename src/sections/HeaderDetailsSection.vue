@@ -55,65 +55,19 @@
 </template>
 
 <script setup>
-import { useMovies } from "src/composables/useMovies";
-import {
-  formattDateForEachMovie,
-  formattMovieDuration,
-  formattUrlPosterMovie,
-  getYouTubeLink,
-} from "src/utils/utils";
-import { onMounted, ref } from "vue";
+import { useMovieDetails } from "src/composables/useMovieDetails";
+import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const movieId = ref(null);
-const movieDetailsForShow = ref({
-  date: null,
-  language: null,
-  title: null,
-  description: null,
-  match: null,
-  duration: null,
-  image: null,
-  trailerLink: null,
-  providerLink: null,
-});
+const movieId = route.params.id;
 
-const {
-  fetchMovieDetails,
-  movieDetails,
-  fetchMovieVideos,
-  videoTrailer,
-  fetchProviders,
-  providersMovie,
-} = useMovies();
+const { goToSeeMovie, goToTrailer, loadMovieDetails, movieDetailsForShow } =
+  useMovieDetails();
 
 onMounted(async () => {
-  movieId.value = route.params.id;
-
-  await fetchMovieDetails(movieId.value);
-  await fetchMovieVideos(movieId.value);
-  await fetchProviders(movieId.value);
-
-  movieDetailsForShow.value = {
-    date: formattDateForEachMovie(movieDetails.value.release_date),
-    title: movieDetails.value.original_title,
-    description: movieDetails.value.overview,
-    duration: formattMovieDuration(movieDetails.value.runtime),
-    image: formattUrlPosterMovie(movieDetails.value.backdrop_path, "w1280"),
-    language: movieDetails.value.original_language,
-    match: movieDetails.value.vote_average * 10,
-    trailerLink: getYouTubeLink(videoTrailer.value),
-  };
+  await loadMovieDetails(movieId);
 });
-
-const goToTrailer = () => {
-  window.open(movieDetailsForShow.value.trailerLink, "_blank");
-};
-
-const goToSeeMovie = () => {
-  window.open(providersMovie.value, "_blank");
-};
 </script>
 
 <style>

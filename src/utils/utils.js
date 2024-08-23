@@ -8,7 +8,7 @@ export const formattDateToNavbar = (date) => {
   const timeFormatter = new Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false, // Cambia a true si quieres un formato AM/PM
+    hour12: false,
   });
 
   const formattedDate = dateFormatter.format(date);

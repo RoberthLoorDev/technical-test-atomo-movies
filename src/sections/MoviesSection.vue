@@ -1,18 +1,15 @@
 <template>
-  <!--  -->
-  <section class="movies-section">
-    <!-- search -->
-    <q-form @submit.prevent="handleSearch">
+  <section class="movies-section" v-if="movieSearch">
+    <q-form @submit.prevent="movieSearch.handleSearch">
       <div class="input-container">
         <q-input
+          v-model="movieSearch.searchQuery"
           color="white"
           class="col | input-search"
           label-color="white"
           placeholder="Search by name"
           input-style="color: white; padding-left: 15px"
-          v-model="searchQuery"
         />
-
         <q-img
           src="../assets/search-icon.png"
           width="19px"
@@ -22,10 +19,9 @@
       </div>
     </q-form>
 
-    <!-- movies content -->
     <q-list class="movies-container">
       <MovieComponent
-        v-for="movie in moviesToDisplay"
+        v-for="movie in movieSearch.moviesToDisplay"
         :key="movie.id"
         :id="movie.id"
         :title="movie.original_title"
@@ -38,30 +34,32 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { useMovieSearch } from "src/composables/useMovieSearch";
 import MovieComponent from "src/components/MovieComponent.vue";
-import { useMovies } from "src/composables/useMovies";
+import { watch, ref, nextTick } from "vue";
+
 const props = defineProps({
-  movieList: Array,
+  movieList: {
+    type: Array,
+    required: true,
+  },
 });
 
-const searchQuery = ref(null);
-const { movies, searchForMovies } = useMovies();
+const movieSearch = ref(null);
 
-const handleSearch = () => {
-  if (searchQuery.value) {
-    searchForMovies(searchQuery.value);
-  } else {
-    movies.value = props.movieList;
-  }
-};
-
-const moviesToDisplay = computed(() => {
-  return movies.value.length > 0 ? movies.value : props.movieList;
-});
+watch(
+  () => props.movieList,
+  async (newMovieList) => {
+    if (newMovieList && newMovieList.length > 0) {
+      await nextTick();
+      movieSearch.value = useMovieSearch(newMovieList);
+    }
+  },
+  { immediate: true }
+);
 </script>
 
-<style>
+<style scoped>
 .movies-section {
   margin: 0 100px;
   margin-bottom: 10rem;
@@ -82,7 +80,6 @@ const moviesToDisplay = computed(() => {
   transform: translateY(-50%);
 }
 
-/* movies */
 .movies-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(209px, 1fr));
