@@ -18,3 +18,11 @@ export const getPopularMovies = (page = 1) => {
 export const getMovieDetails = async (id) => {
   return API.get(`/movie/${id}`);
 };
+
+export const getMovieVideos = async (id) => {
+  return API.get(`/movie/${id}/videos`);
+};
+
+export const getProviders = async (id) => {
+  return API.get(`/movie/${id}/watch/providers`);
+};

@@ -79,3 +79,8 @@ export const getYear = (date) => {
 export const formatGenresHomeMovie = (genres) => {
   return genres.map((genre) => genre.name).join(" · ");
 };
+
+//create a link trailer video in youtube
+export const getYouTubeLink = (video) => {
+  return `https://www.youtube.com/watch?v=${video.key}`;
+};

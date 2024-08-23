@@ -1,36 +1,41 @@
 <template>
   <section class="details-container">
     <div class="date-age-container row justify-between">
-      <span class="text-body2 col">15, July 2022</span>
+      <span class="text-body2 col">{{ movieDetailsForShow.date }}</span>
       <div class="age-border">
-        <span>+16</span>
+        <span>{{ movieDetailsForShow.language }}</span>
       </div>
       <div class="age-border q-ml-md">
         <span>HD</span>
       </div>
     </div>
 
-    <h2 class="q-mt-lg text-weight-bold">Inception</h2>
+    <h2 class="q-mt-lg text-weight-bold">{{ movieDetailsForShow.title }}</h2>
     <p class="q-mt-lg text-body1 | description-details-movie">
-      Dom Cobb es un ladrón con una extraña habilidad para entrar a los sueños
-      de la gente y robarles los secretos de sus subconscientes. Su habilidad lo
-      ha vuelto muy popular en el mundo del espionaje corporativo, pero ha
-      tenido un gran costo en la gente que ama. Cobb obtiene la oportunidad de
-      redimirse.
+      {{ movieDetailsForShow.description }}
     </p>
 
     <div class="row justify-between | info-duration-match-movie">
-      <span class="text-weight-bold">83% Match</span>
-      <span>1:46h</span>
+      <span class="text-weight-bold">{{
+        `${movieDetailsForShow.match}% Match`
+      }}</span>
+      <span>{{ movieDetailsForShow.duration }}</span>
     </div>
 
     <div class="q-mt-lg row | buttons-container">
-      <q-btn outline color="white" label="TRAILER" padding="8px 20px" />
+      <q-btn
+        outline
+        color="white"
+        label="TRAILER"
+        padding="8px 20px"
+        @click="goToTrailer"
+      />
       <q-btn
         class="row"
         color="white"
         text-color="WATCH NOW"
         padding="8px 20px"
+        @click="goToSeeMovie"
       >
         <q-img class="q-mr-md" src="../assets/play-black.png" width="20px" />
         <span class="text-black">WATCH NOW</span>
@@ -41,15 +46,75 @@
 
     <q-img
       class="background-details-image"
-      src="../assets/background-details-image.png"
+      :src="movieDetailsForShow.image"
       width="1100px"
     />
 
     <!--  -->
   </section>
-
-
 </template>
+
+<script setup>
+import { useMovies } from "src/composables/useMovies";
+import {
+  formattDateForEachMovie,
+  formattMovieDuration,
+  formattUrlPosterMovie,
+  getYouTubeLink,
+} from "src/utils/utils";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const movieId = ref(null);
+const movieDetailsForShow = ref({
+  date: null,
+  language: null,
+  title: null,
+  description: null,
+  match: null,
+  duration: null,
+  image: null,
+  trailerLink: null,
+  providerLink: null,
+});
+
+const {
+  fetchMovieDetails,
+  movieDetails,
+  fetchMovieVideos,
+  videoTrailer,
+  fetchProviders,
+  providersMovie,
+} = useMovies();
+
+onMounted(async () => {
+  movieId.value = route.params.id;
+
+  await fetchMovieDetails(movieId.value);
+  await fetchMovieVideos(movieId.value);
+  await fetchProviders(movieId.value);
+
+  movieDetailsForShow.value = {
+    date: formattDateForEachMovie(movieDetails.value.release_date),
+    title: movieDetails.value.original_title,
+    description: movieDetails.value.overview,
+    duration: formattMovieDuration(movieDetails.value.runtime),
+    image: formattUrlPosterMovie(movieDetails.value.backdrop_path, "w1280"),
+    language: movieDetails.value.original_language,
+    match: movieDetails.value.vote_average * 10,
+    trailerLink: getYouTubeLink(videoTrailer.value),
+  };
+});
+
+const goToTrailer = () => {
+  window.open(movieDetailsForShow.value.trailerLink, "_blank");
+};
+
+const goToSeeMovie = () => {
+  window.open(providersMovie.value, "_blank");
+};
+</script>
 
 <style>
 .details-container {
