@@ -34,6 +34,10 @@
 
 <script setup>
 import MovieComponent from "src/components/MovieComponent.vue";
+import { getPopularMovies } from "src/services/tmdbApi";
+
+const moviesArray = getPopularMovies();
+console.log(moviesArray);
 </script>
 
 <style>
