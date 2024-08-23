@@ -15,6 +15,6 @@ export const getPopularMovies = (page = 1) => {
   return API.get("/movie/popular", { params: { page } });
 };
 
-export const getMovieDetails = async (id = 533535) => {
+export const getMovieDetails = async (id) => {
   return API.get(`/movie/${id}`);
 };

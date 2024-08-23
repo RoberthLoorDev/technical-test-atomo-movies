@@ -50,10 +50,17 @@ import {
   formattUrlPosterMovie,
 } from "src/utils/utils";
 
-const { fetchMovieDetails, movieDetails } = useMovies();
+const {
+  fetchMovieDetails,
+  movieDetails,
+  getMostPopularMovie,
+  fetchPopularMovies,
+} = useMovies();
 
 onMounted(async () => {
-  await fetchMovieDetails();
+  await fetchPopularMovies();
+  const mostPopularMovieId = getMostPopularMovie();
+  await fetchMovieDetails(mostPopularMovieId);
 });
 </script>
 
