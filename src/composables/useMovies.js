@@ -1,42 +1,46 @@
 import { ref } from "vue";
-import axios from "axios";
+import { getMovieDetails, getPopularMovies } from "../services/tmdbApi.js";
 
-export function useMovieApi() {
+export function useMovies() {
   const movies = ref([]);
+  const movieDetails = ref(null);
   const loading = ref(false);
   const error = ref(null);
 
-  const fetchMovies = async (endpoint, page = 1) => {
+  const fetchPopularMovies = async (page = 1) => {
     loading.value = true;
     error.value = null;
-
-    const options = {
-      method: "GET",
-      url: `https://api.themoviedb.org/3${endpoint}`,
-      params: { language: "en-US", page: page.toString() },
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${process.env.TMDB_API_KEY_AUTHORIZATION}`,
-      },
-    };
-
     try {
-      const response = await axios.request(options);
+      const response = await getPopularMovies(page);
       movies.value = response.data.results;
     } catch (e) {
-      error.value = "Error fetching movies. Please try again.";
+      error.value = "Error fetching popular movies";
       console.error(e);
     } finally {
       loading.value = false;
     }
   };
 
-  const getPopularMovies = (page = 1) => fetchMovies("/movie/popular", page);
+  const fetchMovieDetails = async (id) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await getMovieDetails(id);
+      movieDetails.value = response.data;
+    } catch (e) {
+      error.value = "Error fetching movie details";
+      console.error(e);
+    } finally {
+      loading.value = false;
+    }
+  };
 
   return {
     movies,
+    movieDetails,
     loading,
     error,
-    getPopularMovies,
+    fetchPopularMovies,
+    fetchMovieDetails,
   };
 }
