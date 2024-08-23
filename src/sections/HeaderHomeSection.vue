@@ -28,7 +28,7 @@
     </div>
 
     <!-- icon play -->
-    <div class="button-play">
+    <div class="button-play" @click="goToMoviePageDetails">
       <q-img src="../assets/play-icon.png" width="83px" />
     </div>
 
@@ -41,6 +41,7 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import { useMovies } from "src/composables/useMovies";
 import { onMounted } from "vue";
 import {
@@ -49,6 +50,8 @@ import {
   getYear,
   formattUrlPosterMovie,
 } from "src/utils/utils";
+
+const router = useRouter();
 
 const {
   fetchMovieDetails,
@@ -62,6 +65,10 @@ onMounted(async () => {
   const mostPopularMovieId = getMostPopularMovie();
   await fetchMovieDetails(mostPopularMovieId);
 });
+
+const goToMoviePageDetails = (movieId) => {
+  router.push({ name: "MovieDetails", params: { id: movieDetails.value.id } });
+};
 </script>
 
 <style>
