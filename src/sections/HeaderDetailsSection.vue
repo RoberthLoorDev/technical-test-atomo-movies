@@ -145,7 +145,8 @@ onMounted(async () => {
   }
 
   .background-details-image {
-    left: 0;
+    right: 0px;
+    left: 300px;
   }
 }
 </style>
