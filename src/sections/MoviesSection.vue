@@ -61,7 +61,7 @@ watch(
 
 <style scoped>
 .movies-section {
-  margin: 0 100px;
+  margin: 0 20px;
   margin-bottom: 10rem;
 }
 
@@ -70,7 +70,6 @@ watch(
   background-color: #1c1d2d;
   height: 56px;
   border-radius: 5px;
-  width: 293px;
 }
 
 .icon-search {
@@ -82,8 +81,23 @@ watch(
 
 .movies-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(209px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
   margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  .movies-container {
+    grid-template-columns: repeat(auto-fill, minmax(209px, 1fr));
+    gap: 20px;
+  }
+  .movies-section {
+    margin: 0 100px;
+    margin-bottom: 10rem;
+  }
+
+  .input-container {
+    width: 293px;
+  }
 }
 </style>

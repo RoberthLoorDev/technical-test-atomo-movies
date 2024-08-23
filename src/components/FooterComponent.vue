@@ -2,7 +2,7 @@
   <q-footer class="text-white row | footer footer-style">
     <q-toolbar class="">
       <q-toolbar-title class="row items-center justify-between">
-        <a href="/" style="width: 131px">
+        <a href="/" style="width: 131px" class="icon-footer">
           <q-img
             src="../assets/icon-page.png"
             style="max-height: 34px; max-width: 111px"
@@ -38,10 +38,19 @@
   background-color: #1c1d2d;
   padding: 0 100px;
 }
+.icon-footer {
+  display: none;
+}
 
 .text-footer-container {
   display: flex;
   gap: 45px;
   font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .icon-footer {
+    display: flex;
+  }
 }
 </style>

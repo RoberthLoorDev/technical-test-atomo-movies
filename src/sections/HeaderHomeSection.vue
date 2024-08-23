@@ -1,12 +1,12 @@
 <template>
   <section
     v-if="movieDetails"
-    class="home-header q-px-xl row justify-between items-center"
+    class="home-header q-px-md col justify-center items-center"
   >
     <q-card class="bg-transparent">
       <span class="text-white text-weight-light">Trending movie:</span>
 
-      <h2 class="text-h2 text-white text-weight-bold q-mt-lg">
+      <h2 class="text-white text-weight-bold q-mt-lg | title-movie">
         {{ movieDetails.original_title }}
       </h2>
       <div
@@ -27,12 +27,14 @@
     </q-card>
 
     <!-- icon play -->
-    <q-icon
-      class="button-play bg-transparent"
-      @click="goToMovieDetails(movieDetails.id)"
-    >
-      <q-img src="../assets/play-icon.png" width="83px" />
-    </q-icon>
+    <div class="play-container">
+      <q-icon
+        class="button-play bg-transparent"
+        @click="goToMovieDetails(movieDetails.id)"
+      >
+        <q-img src="../assets/play-icon.png" width="37px" class="icon-play" />
+      </q-icon>
+    </div>
 
     <!-- background image -->
     <q-img
@@ -72,14 +74,14 @@ onMounted(async () => {
 <style>
 .home-header {
   position: relative;
-  height: 668px;
+  height: 368px;
   max-height: 668px;
 }
 
 .button-play {
   position: relative;
-  width: 130px;
-  height: 130px;
+  width: 78px;
+  height: 78px;
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -127,5 +129,38 @@ onMounted(async () => {
 
 .info-movie-header {
   width: 350px;
+}
+
+.title-movie {
+  font-size: 35px;
+}
+
+.play-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  .title-movie {
+    font-size: 60px;
+  }
+
+  .home-header {
+    padding: 0 48px;
+    display: flex;
+    justify-content: space-between;
+    height: 498px;
+  }
+
+  .button-play {
+    width: 130px;
+    height: 130px;
+  }
+
+  .icon-play {
+    min-width: 83px;
+    min-height: 83px;
+  }
 }
 </style>

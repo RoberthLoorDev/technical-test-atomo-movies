@@ -2,7 +2,7 @@
   <!-- navbar -->
   <q-header class="text-white q-py-lg q-px-xl | navbar-style">
     <q-toolbar class="">
-      <q-toolbar-title class="row items-center justify-between">
+      <q-toolbar-title class="row items-center | icon-date-container">
         <a
           href="/"
           style="width: 131px"
@@ -15,7 +15,7 @@
           />
         </a>
 
-        <div class="q-hidden-md-and-up">
+        <div class="date-container">
           <span class="q-mr-md" style="opacity: 0.3"> | </span>
           <span style="font-size: 14px">{{ date }}</span>
         </div>
@@ -34,6 +34,26 @@ const date = formattDateToNavbar(currentDate);
 <style>
 .navbar-style {
   position: relative;
+  display: flex;
+  justify-content: center;
   background-color: transparent;
+}
+
+.icon-date-container {
+  display: flex;
+  justify-content: center;
+}
+
+.date-container {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .date-container {
+    display: flex;
+  }
+  .icon-date-container {
+    justify-content: space-between;
+  }
 }
 </style>

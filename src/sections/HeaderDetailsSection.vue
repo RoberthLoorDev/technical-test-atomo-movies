@@ -10,7 +10,9 @@
       </div>
     </div>
 
-    <h2 class="q-mt-lg text-weight-bold">{{ movieDetailsForShow.title }}</h2>
+    <h2 class="q-mt-lg text-weight-bold | title-movie">
+      {{ movieDetailsForShow.title }}
+    </h2>
     <p class="q-mt-lg text-body1 | description-details-movie">
       {{ movieDetailsForShow.description }}
     </p>
@@ -70,9 +72,9 @@ onMounted(async () => {
 });
 </script>
 
-<style>
+<style scoped>
 .details-container {
-  margin: 90px 0 0 120px;
+  margin: 90px 0 0 20px;
   color: white;
 }
 
@@ -92,7 +94,7 @@ onMounted(async () => {
 }
 
 .description-details-movie {
-  width: 616px;
+  margin-right: 20px;
 }
 
 .info-duration-match-movie {
@@ -115,6 +117,7 @@ onMounted(async () => {
   position: absolute;
   top: -200px;
   right: 0;
+  left: -200px;
   z-index: -20;
   opacity: 0.8;
   mask-image: linear-gradient(transparent, black 50%, transparent),
@@ -124,5 +127,25 @@ onMounted(async () => {
   mask-composite: intersect;
   object-fit: cover;
   object-position: center;
+}
+
+.title-movie {
+  font-size: 35px;
+}
+
+@media (min-width: 768px) {
+  .details-container {
+    margin: 90px 0 0 120px;
+  }
+  .description-details-movie {
+    width: 616px;
+  }
+  .title-movie {
+    font-size: 60px;
+  }
+
+  .background-details-image {
+    left: 0;
+  }
 }
 </style>
