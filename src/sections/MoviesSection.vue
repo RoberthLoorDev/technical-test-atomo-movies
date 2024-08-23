@@ -23,21 +23,25 @@
 
     <!-- movies content -->
     <div class="movies-container">
-      <MovieComponent />
-      <MovieComponent />
-      <MovieComponent />
-      <MovieComponent />
-      <MovieComponent />
+      <MovieComponent
+        v-for="(movie, index) in movieList"
+        :key="index"
+        :title="movie.original_title"
+        :date="movie.release_date"
+        :short-description="movie.overview"
+        :image="movie.poster_path"
+      />
     </div>
   </section>
 </template>
 
 <script setup>
 import MovieComponent from "src/components/MovieComponent.vue";
-import { getPopularMovies } from "src/services/tmdbApi";
+const props = defineProps({
+  movieList: Array,
+});
 
-const moviesArray = getPopularMovies();
-console.log(moviesArray);
+console.log(props.movieList);
 </script>
 
 <style>

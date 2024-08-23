@@ -16,3 +16,48 @@ export const formattDateToNavbar = (date) => {
 
   return `${formattedDate} • ${formattedTime}`;
 };
+
+export const formattDateForEachMovie = (dateString) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const date = new Date(dateString);
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  const daySuffix = (day) => {
+    if (day > 3 && day < 21) return "th";
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  return `${month} ${day}${daySuffix(day)} ${year}`;
+};
+
+//formater full url of the movie posters
+export const formattUrlPosterMovie = (backdropPath) => {
+  const baseURL = "https://image.tmdb.org/t/p/";
+  const size = "w200";
+  return `${baseURL}${size}${backdropPath}`;
+};
