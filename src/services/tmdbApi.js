@@ -26,3 +26,12 @@ export const getMovieVideos = async (id) => {
 export const getProviders = async (id) => {
   return API.get(`/movie/${id}/watch/providers`);
 };
+
+export const searchMovies = (query, page = 1) => {
+  return API.get("/search/movie", {
+    params: {
+      query,
+      page,
+    },
+  });
+};

@@ -4,6 +4,7 @@ import {
   getPopularMovies,
   getMovieVideos,
   getProviders,
+  searchMovies,
 } from "../services/tmdbApi.js";
 
 export function useMovies() {
@@ -81,6 +82,20 @@ export function useMovies() {
     }
   };
 
+  const searchForMovies = async (query, page = 1) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await searchMovies(query, page);
+      movies.value = response.data.results;
+    } catch (e) {
+      error.value = "Error searching for movies";
+      console.error(e);
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     movies,
     movieDetails,
@@ -95,5 +110,6 @@ export function useMovies() {
     videoTrailer,
     fetchProviders,
     providersMovie,
+    searchForMovies,
   };
 }

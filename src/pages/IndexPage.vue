@@ -10,7 +10,6 @@ import HeaderHome from "src/sections/HeaderHomeSection.vue";
 import MoviesSection from "src/sections/MoviesSection.vue";
 import { ref, onMounted } from "vue";
 import { useMovies } from "src/composables/useMovies";
-const trendMovie = ref(null);
 
 const { fetchPopularMovies, movies } = useMovies();
 

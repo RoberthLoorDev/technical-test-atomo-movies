@@ -2,7 +2,7 @@
   <!--  -->
   <section class="movies-section">
     <!-- search -->
-    <q-form>
+    <q-form @submit.prevent="handleSearch">
       <div class="input-container">
         <q-input
           color="white"
@@ -10,6 +10,7 @@
           label-color="white"
           placeholder="Search by name"
           input-style="color: white; padding-left: 15px"
+          v-model="searchQuery"
         />
 
         <q-img
@@ -24,8 +25,8 @@
     <!-- movies content -->
     <div class="movies-container">
       <MovieComponent
-        v-for="(movie, index) in movieList"
-        :key="index"
+        v-for="movie in moviesToDisplay"
+        :key="movie.id"
         :id="movie.id"
         :title="movie.original_title"
         :date="movie.release_date"
@@ -37,9 +38,26 @@
 </template>
 
 <script setup>
+import { computed, ref } from "vue";
 import MovieComponent from "src/components/MovieComponent.vue";
+import { useMovies } from "src/composables/useMovies";
 const props = defineProps({
   movieList: Array,
+});
+
+const searchQuery = ref(null);
+const { movies, searchForMovies } = useMovies();
+
+const handleSearch = () => {
+  if (searchQuery.value) {
+    searchForMovies(searchQuery.value);
+  } else {
+    movies.value = props.movieList;
+  }
+};
+
+const moviesToDisplay = computed(() => {
+  return movies.value.length > 0 ? movies.value : props.movieList;
 });
 </script>
 
