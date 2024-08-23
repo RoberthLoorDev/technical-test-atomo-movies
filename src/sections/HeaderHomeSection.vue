@@ -1,24 +1,29 @@
 <template>
   <!-- header -->
-  <section class="home-header q-px-xl row justify-between items-center">
+  <section
+    v-if="movieDetails"
+    class="home-header q-px-xl row justify-between items-center"
+  >
     <div>
-      <span class="text-white text-weight-light">Trending de la semana:</span>
+      <span class="text-white text-weight-light">Trending movie:</span>
 
-      <h2 class="text-h2 text-white text-weight-bold q-mt-lg">Interestelar</h2>
+      <h2 class="text-h2 text-white text-weight-bold q-mt-lg">
+        {{ movieDetails.original_title }}
+      </h2>
       <div
-        class="text-body1 text-grey-7 text-weight-bold q-mt-sm row justify-between"
+        class="text-body1 text-grey-7 text-weight-bold q-mt-sm row justify-between | info-movie-header"
       >
-        <span class=""> IMDb 8,72 </span>
-        <span>2 h 42 min</span>
-        <span>2014</span>
+        <span> {{ `IMDb ${movieDetails.vote_average}` }} </span>
+        <span>{{ formattMovieDuration(movieDetails.runtime) }}</span>
+        <span>{{ getYear(movieDetails.release_date) }}</span>
 
         <div class="age">
-          <span class="text-white">+16</span>
+          <span class="text-white">{{ movieDetails.original_language }}</span>
         </div>
       </div>
 
       <p class="text-white text-weight-medium text-body1 q-mt-sm">
-        Ciencia ficción · Aventura · Pesimista · Emotiva
+        {{ formatGenresHomeMovie(movieDetails.genres) }}
       </p>
     </div>
 
@@ -29,11 +34,28 @@
 
     <!-- background image -->
     <q-img
-      src="../assets/banner-image-home.png"
+      :src="formattUrlPosterMovie(movieDetails.backdrop_path, 'w1280')"
       class="background-header-image"
     />
   </section>
 </template>
+
+<script setup>
+import { useMovies } from "src/composables/useMovies";
+import { onMounted } from "vue";
+import {
+  formatGenresHomeMovie,
+  formattMovieDuration,
+  getYear,
+  formattUrlPosterMovie,
+} from "src/utils/utils";
+
+const { fetchMovieDetails, movieDetails } = useMovies();
+
+onMounted(async () => {
+  await fetchMovieDetails();
+});
+</script>
 
 <style>
 .home-header {
@@ -89,5 +111,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 3px;
+}
+
+.info-movie-header {
+  width: 350px;
 }
 </style>

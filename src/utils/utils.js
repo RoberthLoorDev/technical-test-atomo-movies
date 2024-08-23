@@ -56,8 +56,26 @@ export const formattDateForEachMovie = (dateString) => {
 };
 
 //formater full url of the movie posters
-export const formattUrlPosterMovie = (backdropPath) => {
+export const formattUrlPosterMovie = (backdropPath, wsize) => {
   const baseURL = "https://image.tmdb.org/t/p/";
-  const size = "w200";
+  const size = wsize;
   return `${baseURL}${size}${backdropPath}`;
+};
+
+//formatt time movie in header info movie
+export const formattMovieDuration = (minutos) => {
+  const hours = Math.floor(minutos / 60);
+  const remainingMinutes = minutos % 60;
+  return `${hours} h ${remainingMinutes} min`;
+};
+
+//extract year from date
+export const getYear = (date) => {
+  const newDate = new Date(date);
+  return newDate.getFullYear();
+};
+
+//formatt gender
+export const formatGenresHomeMovie = (genres) => {
+  return genres.map((genre) => genre.name).join(" · ");
 };

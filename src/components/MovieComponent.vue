@@ -41,7 +41,7 @@ const props = defineProps({
 });
 
 dateMovie.value = formattDateForEachMovie(props.date);
-imageUrl.value = formattUrlPosterMovie(props.image);
+imageUrl.value = formattUrlPosterMovie(props.image, "w200");
 </script>
 
 <style>

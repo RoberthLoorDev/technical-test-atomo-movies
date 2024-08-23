@@ -9,13 +9,13 @@
 import HeaderHome from "src/sections/HeaderHomeSection.vue";
 import MoviesSection from "src/sections/MoviesSection.vue";
 import { ref, onMounted } from "vue";
+import { useMovies } from "src/composables/useMovies";
+const trendMovie = ref(null);
 
-import { useMovieApi } from "src/composables/useMovies";
-
-const { movies, loading, error, getPopularMovies } = useMovieApi();
+const { fetchPopularMovies, movies } = useMovies();
 
 onMounted(() => {
-  getPopularMovies();
+  fetchPopularMovies();
 });
 
 defineOptions({
